@@ -23,7 +23,7 @@ cd ~/drl_agent_ws
 source install/setup.bash
 python3 src/drl_agent/scripts/policy/keyboard_test_agent.py
 
-测试
+测试训练好的模型
 cd ~/drl_agent_ws
 source install/setup.bash
 ros2 run drl_agent test_td7_agent.py

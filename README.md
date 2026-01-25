@@ -1,22 +1,8 @@
-# DRL-for-Mobile-Robot-Navigation-Using-ROS2
-
-<div align="center">
-  <img src="/docs/simulation.gif" alt="Simulation" />
-</div>
-
-
-## Table of Contents
-- [DRL-for-Mobile-Robot-Navigation-Using-ROS2](#drl-for-mobile-robot-navigation-using-ros2)
-  - [Table of Contents](#table-of-contents)
-  - [Project Structure](#project-structure)
-  - [Requirements](#requirements)
-    - [Other requirements](#other-requirements)
-  - [Build](#build)
-  - [Training](#training)
-  - [Testing](#testing)
-  - [Additional Demos](#additional-demos)
+forked from
+[DRL Agent for Mobile Robot Navigation](https://github.com/anurye/Mobile-Robot-Navigation-Using-Deep-Reinforcement-Learning-and-ROS#drl-for-mobile-robot-navigation-using-ros2)
 
 ## Project Structure
+
 ```txt
 .
 ├── 📂 docs/: contains demo videos
@@ -43,110 +29,82 @@
 │   ├── 📂 msg/: empty for now
 │   └── 📂 srv/: service definitions for environment and robot interactions
 ├── 📂 velodyne_simulator/: Velodyne LiDAR simulation setup
-
 ```
 
 ## Requirements
-- Install [Ubuntu 22.04](https://www.releases.ubuntu.com/jammy/)
-- Install [ROS2 Humble](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
-- Install [Gazebo](https://classic.gazebosim.org/tutorials?tut=install_ubuntu&cat=install)
-- Install `gazebo_ros_pkgs` by running:
-    ```bash
-    sudo apt install ros-humble-gazebo-*
-    ```
-- Install [PyTorch 2.3.1](https://pytorch.org/get-started/locally/)
 
-### Other requirements
-```bash
-pip install -r requirements.txt
-```
+- Ubuntu 22.04
+- ROS2 Humble
+- Gazebo
+- gazebo_ros_pkgs: `sudo apt install ros-humble-gazebo-*`
+- PyTorch 2.3.1
+- Nav2 Map Server: `sudo apt install ros-humble-nav2-map-server ros-humble-nav2-lifecycle-manager`
+- Python dependencies: `pip install -r requirements.txt`
 
 ## Build
-- Clone this repository:
-    ```bash
-    mkdir -p ~/drl_agent_ws/src
-    cd ~/drl_agent_ws/src
-    git clone --recurse-submodules git@github.com:anurye/DRL-for-Mobile-Robot-Navigation-Using-ROS2.git .
-    ```
-- Install dependencies:
-    ```bash
-    cd ~/drl_agent_ws
-    rosdep install --from-path src -yi --rosdistro humble
-    ```
-- Build the workspace:
-    ```bash
-    cd ~/drl_agent_ws
-    colcon build
-    ```
 
-## Training
-- Export the environment variable `DRL_AGENT_SRC_PATH`:
-    ```bash
-    echo 'export DRL_AGENT_SRC_PATH=~/drl_agent_ws/src/' >> ~/.bashrc
-    source ~/.bashrc
-    ```
-- Launch the simulation:
+```bash
+mkdir -p ~/drl_agent_ws/src
+cd ~/drl_agent_ws/src
+git clone https://github.com/fomalhaut251/micromouse-gazebo-drl.git .
+cd ~/drl_agent_ws
+rosdep install --from-path src -yi --rosdistro humble
+colcon build
+echo 'export DRL_AGENT_SRC_PATH=~/drl_agent_ws/src/' >> ~/.bashrc
+source ~/.bashrc
+```
 
-    Terminal 1:
-    ```bash
-    cd ~/drl_agent_ws
-    source install/setup.bash
-    ros2 launch drl_agent_gazebo simulation.launch.py
-    ```
+## Quick Start
 
-  > [!NOTE]
-  > If gazebo is not starting, you may want to source it.
+### Terminal 1: Launch Simulation
 
-    ```bash
-    source /usr/share/gazebo/setup.bash 
-    ```
-    Terminal 2:
-    ```bash
-    cd ~/drl_agent_ws
-    source install/setup.bash
-    ros2 run drl_agent environment.py 
-    ```
+```bash
+cd ~/drl_agent_ws
+source install/setup.bash
+ros2 launch drl_agent_gazebo simulation.launch.py
+```
 
-    Terminal 3:
-    ```bash
-    cd ~/drl_agent_ws
-    source install/setup.bash
-    ros2 run drl_agent train_td7_agent.py
-    ```
+### Terminal 2: Launch Environment Interface
 
-## Testing
-If you have closed the terminals, restart the simulation in Terminal 1 and Terminal 2 as described above.
+```bash
+cd ~/drl_agent_ws
+source install/setup.bash
+ros2 run drl_agent environment.py
+```
 
-Terminal 3:
+### Terminal 3: Launch Map Server (Optional)
+
+```bash
+cd ~/drl_agent_ws
+source install/setup.bash
+ros2 launch drl_agent_gazebo map_server.launch.py
+```
+
+### Terminal 4: Run Agent
+
+**Train:**
+```bash
+cd ~/drl_agent_ws
+source install/setup.bash
+ros2 run drl_agent train_td7_agent.py
+```
+
+**Test:**
 ```bash
 cd ~/drl_agent_ws
 source install/setup.bash
 ros2 run drl_agent test_td7_agent.py
 ```
 
-## Additional Demos
+**Manual Control:**
+```bash
+cd ~/drl_agent_ws
+source install/setup.bash
+python3 src/drl_agent/scripts/policy/keyboard_test_agent.py
+```
 
-<table width="100%">
-  <tr>
-    <td align="center" width="50%">
-      <img src="/docs/slam.gif" alt="SLAM" width="90%">
-    </td>
-    <td align="center" width="50%">
-      <img src="/docs/dynamic_environment.gif" alt="Dynamic" width="90%">
-    </td>
-  </tr>
-</table>
+## Configuration
 
-
-<!-- ```txt
-@mastersthesis{Nurye-2024,
-author = {Ahmed Yesuf Nurye},
-title = {Mobile Robot Navigation in Dynamic Environments},
-year = {2024},
-month = {October},
-school = {Warsaw University of Technology},
-address = {Warsaw, Poland},
-number = {WUT4f18e5c2cd214a9cb555f730fa440901},
-keywords = {Mobile Robot Navigation, Deep Reinforcement Learning, ROS2, Gazebo},
-}
-``` -->
+- **Test Settings:** `drl_agent/config/test_config.yaml`
+- **Training Settings:** `drl_agent/config/train_config.yaml`
+- **World File:** `drl_agent_gazebo/worlds/museum1.world`
