@@ -1,0 +1,91 @@
+threshold_parameters:
+  goal_threshold: 0.4
+  collision_threshold: 0.105
+  time_delta: 0.1
+  inter_entity_distance: 1.5
+  lidar_max_range: 10
+
+environment:
+  lower: -8.0
+  upper: 8.0
+  num_of_obstacles: 0
+  environment_state_dim: 20
+  agent_state_dim: 4
+  action_dim: 2
+  agent_name: "pioneer_3dx"
+  max_action: 1.0
+  actions_low: [-1.0, -1.0]
+  actions_high: [1.0, 1.0]
+  training_pairs:
+    # - start: {x: -7.5, y: 7.5, theta: -1.57}  # 点 1
+    #   goal: {x: 0.5, y: 0.5}
+    # - start: {x: -6.5, y: 7.5, theta: 0.0}   # 起点 1 （朝东）
+    #   goal: {x: 6.5, y: 7.5}                 # 终点 1
+    
+    # - start: {x: -7.5, y: -7.5, theta: 1.57}  # 起点 2 (朝北)
+    #   goal: {x: -7.5, y: 4.5}                 # 终点 2
+      
+    # - start: {x: 2.5, y: 4.5, theta: -1.57}  # 起点 3 (朝南)
+    #   goal: {x: 2.5, y: -0.5}               # 终点 3
+
+    # - start: {x: 2.5, y: 4.5, theta: 3.14}  # 起点 4 (朝西)
+    #   goal: {x: -0.5, y: 1.5}
+    
+    - start: {x: -7.5, y: 7.5, theta: -1.57}  # 点 1
+      goal: {x: -6.5, y: 4.5}
+
+    - start: {x: -6.5, y: 4.5, theta: -1.57}  # 点 2
+      goal: {x: -6.5, y: -1.5}
+
+    - start: {x: -6.5, y: -1.5, theta: 0.0}  # 点 3
+      goal: {x: -6.5, y: -4.5}
+
+    - start: {x: -6.5, y: -4.5, theta: 0.0}  # 点 4
+      goal: {x: -4.5, y: -4.5}
+
+    - start: {x: -4.5, y: -4.5, theta: 0.0}  # 点 5
+      goal: {x: -0.5, y: -1.5}
+
+    - start: {x: -0.5, y: -1.5, theta: -3.14}  # 点 6
+      goal: {x: -0.5, y: 1.5}
+
+    - start: {x: -0.5, y: 1.5, theta: 0.0}  # 点 7
+      goal: {x: 2.5, y: 3.5}
+
+    - start: {x: 2.5, y: 3.5, theta: -1.57}  # 点 8
+      goal: {x: 2.5, y: -0.5}
+
+    - start: {x: 2.5, y: -0.5, theta: 3.14}  # 点 9
+      goal: {x: 0.5, y: -0.5}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

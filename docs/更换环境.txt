@@ -1,0 +1,48 @@
+1. 添加新的 World 文件
+首先，你需要将新的 .world 文件放入项目的 worlds 目录中，以便 ROS 2 能找到它。
+
+目标路径: src/drl_agent_gazebo/worlds/
+
+操作: 将你的 museum.world 复制到上述文件夹。
+
+注意: 检查 src/drl_agent_gazebo/CMakeLists.txt，第 25-30 行已经包含了 worlds 目录的安装指令，所以只要文件放在该目录下，重新编译后即可被系统识别，无需修改 CMakeLists。
+
+2. 修改 Launch 文件
+你有两种修改方式，建议使用 方法 A（直接修改默认值）或 方法 B（传递参数）。
+
+方法 A：直接修改 gazebo_world.launch.py (最简单)
+修改 src/drl_agent_gazebo/launch/gazebo_world.launch.py 文件，将默认的 world 文件名改为你的新文件名。
+
+找到第 27 行左右的代码：
+
+Python
+# 原代码
+os.path.join(
+    get_package_share_directory("drl_agent_gazebo"),
+    "worlds",
+    "td7_static.world", # <--- 修改这里
+)
+修改为：
+
+Python
+# 修改后
+os.path.join(
+    get_package_share_directory("drl_agent_gazebo"),
+    "worlds",
+    "museum.world", # 你的新文件名
+)
+
+3. 修改环境配置 (重要)
+深度强化学习（DRL）算法通常需要知道环境的边界和状态空间。你需要检查 src/drl_agent/config/environment.yaml 文件。
+
+修改 lower 和 upper: 目前设置为 -5.0 到 5.0。如果 museum.world 的面积更大或坐标原点不同，你需要相应调整这些值，否则机器人可能会认为自己“出界”了或者在一个过小的范围内训练。
+
+修改 num_of_obstacles: 如果新环境中动态障碍物数量不同，需要调整此参数。
+
+YAML
+environment:
+  lower: -10.0  # <--- 根据 museum.world 的实际大小修改
+  upper: 10.0   # <--- 根据 museum.world 的实际大小修改
+  # ... 其他参数
+
+

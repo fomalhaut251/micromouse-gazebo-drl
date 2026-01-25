@@ -1,0 +1,54 @@
+test_settings:
+  seed: 42
+  base_file_name: "td7_agent"
+  save_date: "20260123_1632"
+  max_episode_steps: 500
+  use_checkpoints: true
+
+start_goal_pairs:
+  - start: {x: -7.5, y: 7.5, theta: -1.57}  # 点 1
+    goal: {x: -6.5, y: 4.5}
+  - start: {x: -6.5, y: 4.5, theta: -1.57}  # 点 2
+    goal: {x: -6.5, y: -1.5}
+  - start: {x: -6.5, y: -1.5, theta: 0.0}  # 点 3
+    goal: {x: -6.5, y: -4.5}
+  - start: {x: -6.5, y: -4.5, theta: 0.0}  # 点 4
+    goal: {x: -4.5, y: -4.5}
+  - start: {x: -4.5, y: -4.5, theta: 0.0}  # 点 5
+    goal: {x: -0.5, y: -1.5}
+  - start: {x: -0.5, y: -1.5, theta: -3.14}  # 点 6
+    goal: {x: -0.5, y: 1.5}
+  - start: {x: -0.5, y: 1.5, theta: 0.0}  # 点 7
+    goal: {x: 2.5, y: 3.5}
+  - start: {x: 2.5, y: 3.5, theta: -1.57}  # 点 8
+    goal: {x: 2.5, y: -0.5}
+  - start: {x: 2.5, y: -0.5, theta: 3.14}  # 点 9
+    goal: {x: 0.5, y: -0.5}
+
+# start_goal_pairs:
+# - start: {x: 4.0, y: 1.0, theta: 3.141593}
+#   goal: {x: -5.0, y: -3.0}
+# - start: {x: -5.0, y: -1.0, theta: 0}
+#   goal: {x: 5.0, y: 5.0}
+# - start: {x: 5.0, y: -2.0, theta: 3.141593}
+#   goal: {x: -5.0, y: 3.0}
+# - start: {x: -4.0, y: 5.0, theta: 0}
+#   goal: {x: 5.0, y: -3.0}
+# - start: {x: -4.0, y: -1.0, theta: 0}
+#   goal: {x: 5.0, y: 3.0}
+# Waipoints for mapping
+# - start: {x: 0.0, y: 0.0, theta: 0}
+#   goal: {x: 5.0, y: 3.0}
+# - start: {x: 5.0, y: 3.0, theta: 3.141593}
+#   goal: {x: 0.0, y: 0.0}
+# - start: {x: 0.0, y: 0.0, theta: 0}
+#   goal: {x: -5.0, y: 3.0}
+# - start: {x: -5.0, y: 3.0, theta: 0}
+#   goal: {x: 0.0, y: 0.0}
+# - start: {x: 0.0, y: 0.0, theta: 0}
+#   goal: {x: -5.0, y: -3.0}
+# - start: {x: -5.0, y: -3.0, theta: 0}
+#   goal: {x: 0.0, y: 0.0}
+# - start: {x: 0.0, y: 0.0, theta: 0}
+#   goal: {x: 5.0, y: -3.0}
+  
