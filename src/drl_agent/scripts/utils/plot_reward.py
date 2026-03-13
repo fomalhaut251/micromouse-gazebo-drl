@@ -3,11 +3,12 @@ import matplotlib.pyplot as plt
 
 # Load the data from the .npy file
 file_path = (
-    "/home/ubuntu22/drl_agent_ws/src/drl_agent/temp/results/td7_agent_20260121_2341.npy"
+    "/home/ubuntu22/drl_agent_ws/src/drl_agent/temp/results/td7_agent_20260312_1909.npy"
+    
 )
 evals = np.load(file_path)
 
-window_size = 10
+window_size = 1
 
 # Compute the running mean
 evals_running_mean = np.convolve(
@@ -27,7 +28,7 @@ ax.plot(
 )
 
 ax.set_title(
-    "Evaluation Rewards Over 100 Epochs (10 episodes/epoch)",
+    "100 个评估轮次中的奖励变化（每个轮次评估 10 个 episode",
     fontsize=16,
     fontweight="bold",
 )

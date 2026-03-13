@@ -96,7 +96,25 @@ class Environment(Node):
         self.actions_high = self.environment_config["actions_high"]
         # === [新增] 在这里把 training_pairs 读出来存成类属性 ===
         self.train_points = self.environment_config["training_pairs"]
+        if len(self.train_points) == 0:
+            self.get_logger().error("No training_pairs found in environment.yaml")
+            sys.exit(-1)
+
+        # 训练点选择模式: random | sequential
+        self.training_pair_selection = self.environment_config.get(
+            "training_pair_selection", "random"
+        ).lower()
+        if self.training_pair_selection not in ["random", "sequential"]:
+            self.get_logger().warning(
+                f"Unsupported training_pair_selection: {self.training_pair_selection}, fallback to random"
+            )
+            self.training_pair_selection = "random"
+
+        # 顺序遍历时使用
+        self.train_pair_index = 0
+        self.train_cycle_count = 0
         self.get_logger().info(f"Loaded {len(self.train_points)} training pairs from environment.yaml")
+        self.get_logger().info(f"Training pair selection mode: {self.training_pair_selection}")
         # 初始化 current_train_goal
         self.current_train_goal = None
         # ====================================================
@@ -446,14 +464,31 @@ class Environment(Node):
         ** 随机生成机器人初始位置
 		*****************************************************"""
         if self.train_mode:
-            if len(self.train_points) > 0:
-                # 随机抽取一组
-                selected_pair = random.choice(self.train_points)
-                
+            if self.training_pair_selection == "sequential":
+                selected_pair = self.train_points[self.train_pair_index]
+
                 start_x = selected_pair["start"]["x"]
                 start_y = selected_pair["start"]["y"]
                 angle = selected_pair["start"]["theta"]
-                
+
+                # 保存对应的终点，给 change_goal 用
+                self.current_train_goal = selected_pair["goal"]
+
+                self.train_pair_index += 1
+                if self.train_pair_index >= len(self.train_points):
+                    self.train_pair_index = 0
+                    self.train_cycle_count += 1
+                    self.get_logger().info(
+                        f"Training pair cycle {self.train_cycle_count} completed. Restarting from the first pair."
+                    )
+            else:
+                # 随机抽取一组
+                selected_pair = random.choice(self.train_points)
+
+                start_x = selected_pair["start"]["x"]
+                start_y = selected_pair["start"]["y"]
+                angle = selected_pair["start"]["theta"]
+
                 # 保存对应的终点，给 change_goal 用
                 self.current_train_goal = selected_pair["goal"]
 

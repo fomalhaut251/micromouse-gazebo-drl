@@ -124,7 +124,7 @@ class TrainTD7(EnvInterface):
         ]
         for dir in directories:
             dir_manager = DirectoryManager(dir)
-            dir_manager.remove_if_present()
+            # dir_manager.remove_if_present()
             dir_manager.create()
 
     def save_models(self, directory, file_name):

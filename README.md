@@ -103,6 +103,22 @@ source install/setup.bash
 python3 src/drl_agent/scripts/policy/keyboard_test_agent.py
 ```
 
+## Troubleshooting
+
+### /gazebo/set_entity_state not available
+
+If the environment node keeps waiting for `/gazebo/set_entity_state`, ensure your `.world` file includes the Gazebo ROS state plugin so the service is provided:
+
+```xml
+<plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so">
+	<ros>
+		<namespace>/gazebo</namespace>
+	</ros>
+</plugin>
+```
+
+Example world file: `drl_agent_gazebo/worlds/museum1.world`.
+
 ## Configuration
 
 - **Test Settings:** `drl_agent/config/test_config.yaml`

@@ -5,7 +5,7 @@ import yaml
 import math
 import os
 
-def parse_world_to_map(world_file, map_name="my_map", resolution=0.05, border_margin=2.0):
+def parse_world_to_map(world_file, map_name="my_map", resolution=0.05, border_margin=2.0, output_dir="."):
     """
     解析 Gazebo world 文件并生成 2D 栅格地图
     
@@ -151,12 +151,15 @@ def parse_world_to_map(world_file, map_name="my_map", resolution=0.05, border_ma
         cv2.fillPoly(grid_map, [pixel_corners], 0)
 
     # 4. 保存 PGM 图片
+    os.makedirs(output_dir, exist_ok=True)
     pgm_filename = f"{map_name}.pgm"
-    cv2.imwrite(pgm_filename, grid_map)
-    print(f"已保存图片: {pgm_filename}")
+    pgm_path = os.path.join(output_dir, pgm_filename)
+    cv2.imwrite(pgm_path, grid_map)
+    print(f"已保存图片: {pgm_path}")
 
     # 5. 保存 YAML 配置文件
     yaml_filename = f"{map_name}.yaml"
+    yaml_path = os.path.join(output_dir, yaml_filename)
     yaml_data = {
         'image': pgm_filename,
         'mode': 'trinary',
@@ -167,9 +170,9 @@ def parse_world_to_map(world_file, map_name="my_map", resolution=0.05, border_ma
         'free_thresh': 0.196
     }
 
-    with open(yaml_filename, 'w') as f:
+    with open(yaml_path, 'w') as f:
         yaml.dump(yaml_data, f, sort_keys=False)
-    print(f"已保存配置: {yaml_filename}")
+    print(f"已保存配置: {yaml_path}")
 
 if __name__ == "__main__":
     # 这里的路径需要根据你实际存放 museum.world 的位置修改
@@ -184,6 +187,7 @@ if __name__ == "__main__":
         world_path = "src/drl_agent_gazebo/worlds/museum.world"
     
     if os.path.exists(world_path):
-        parse_world_to_map(world_path, map_name="museum_map")
+        output_dir = "/home/ubuntu22/drl_agent_ws/src/drl_agent_gazebo/worlds"
+        parse_world_to_map(world_path, map_name="museum_map", output_dir=output_dir)
     else:
         print("错误: 找不到 museum.world 文件，请在代码中修改 world_path 路径。")

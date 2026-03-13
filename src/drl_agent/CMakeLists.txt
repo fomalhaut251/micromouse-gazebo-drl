@@ -45,6 +45,7 @@ install(
     scripts/utils/file_manager.py
     scripts/environment/environment_interface.py
     scripts/environment/environment.py
+    scripts/mapping/structured_online_mapper.py
   DESTINATION 
     lib/${PROJECT_NAME}
 )

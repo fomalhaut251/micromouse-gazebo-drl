@@ -13,6 +13,10 @@
   <test_depend>ament_lint_common</test_depend>
   
   <depend>rclpy</depend>
+  <depend>nav_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_srvs</depend>
+  <depend>visualization_msgs</depend>
   <depend>drl_agent_gazebo</depend>
   <depend>drl_agent_interfaces</depend>
 

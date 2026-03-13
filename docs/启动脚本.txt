@@ -3,15 +3,22 @@ cd ~/drl_agent_ws
 source install/setup.bash
 ros2 launch drl_agent_gazebo simulation.launch.py
 
+# 默认不会发布地图，RViz中初始无地图显示
+
 启动环境接口
 cd ~/drl_agent_ws
 source install/setup.bash
 ros2 run drl_agent environment.py 
 
-启动rviz地图
+启动静态地图（完整迷宫）
 cd ~/drl_agent_ws
 source install/setup.bash
 ros2 launch drl_agent_gazebo map_server.launch.py
+
+手动启动结构化在线建图（只显示探索到的区域）
+cd ~/drl_agent_ws
+source install/setup.bash
+ros2 run drl_agent structured_online_mapper.py
 
 启动训练脚本
 cd ~/drl_agent_ws

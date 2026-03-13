@@ -9,8 +9,8 @@
   <xacro:pioneer3dx_body name="chassis" parent="base_link" meshes="package://drl_agent_description/meshes"/>
 
   <!-- Laser -->
-  <!-- <xacro:include filename="$(find drl_agent_description)/urdf/laser/hokuyo.xacro"/>
-  <xacro:laser name="front_laser" parent="chassis" xyz="0.125 0 0.25" rpy="0 0 0" meshes="package://drl_agent_description/meshes"/> -->
+  <xacro:include filename="$(find drl_agent_description)/urdf/laser/hokuyo.xacro"/>
+  <xacro:laser name="front_laser" parent="chassis" xyz="0.125 0 0.25" rpy="0 0 0" meshes="package://drl_agent_description/meshes"/>
 
 
   <!-- GPU Laser
